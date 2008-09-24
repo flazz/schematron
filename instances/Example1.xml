@@ -21,7 +21,7 @@
   <!-- must have checksum, checksum type & file location  -->
   <fileSec>
     <fileGrp>
-      <file ID="file-1" CHECKSUM="5ddb5736a014619bbbb3684bc6ae1613" CHECKSUMTYPE="MD5">
+      <file ID="file-1" xCHECKSUM="5ddb5736a014619bbbb3684bc6ae1613" CHECKSUMTYPE="MD5">
 	<FLocat LOCTYPE="URL" xlink:href="content_file"/>
       </file>
     </fileGrp>

@@ -23,24 +23,35 @@
 
   </pattern>
 
-  <pattern name="All files must have a message digest and location">
+  <pattern name="All files must have a location">
     <rule context="//mets:file">
-      <assert test="@CHECKSUM">a file must have a checksum</assert> 
-      <assert test="@CHECKSUMTYPE">a file must have a checksum type</assert>
       <assert test="mets:FLocat">a file must have a location</assert>
       <assert test="mets:FLocat/@xlink:href">a file location must have a path reference</assert>
     </rule>
   </pattern>
 
-  <pattern name="All checksums must be">
-    <rule context="//mets:file">
-      <assert test="@CHECKSUM">a file must have a CHECKSUM attribute</assert> 
-      <assert test="@CHECKSUMTYPE">a file must have a CHECKSUMTYPE attribute</assert>
-      <assert test="mets:FLocat">a file must have a FLocat child</assert>
-      <assert test="mets:FLocat/@xlink:href">a FLocat must have a xlink:href attribute</assert>
+  <pattern name="All file checksums must be proper MD5 or SHA-1">
+
+    <rule context="//mets:file[@CHECKSUM and @CHECKSUMTYPE = 'MD5']">
+      <assert test="string-length(@CHECKSUM) = 32">
+	MD5 must be 32 characters
+      </assert>
+      <assert test="string-length(translate(@CHECKSUM, '0987654321abcdefABCDEF', '')) = 0">
+	MD5 must be only characters 0-9, A-Z, a-z
+      </assert>
     </rule>
+
+    <rule context="//mets:file[@CHECKSUM and @CHECKSUMTYPE = 'SHA-1']">
+      <assert test="string-length(@CHECKSUM) = 40">
+	SHA-1 must be 40 characters
+      </assert>
+      <assert test="string-length(translate(@CHECKSUM, '0987654321abcdefABCDEF', '')) = 0">
+	SHA-1 must be only characters 0-9, A-Z, a-z
+      </assert>
+    </rule>
+
   </pattern>
-  
+
   <pattern name="All files must be referenced in the structMap">
     <rule context="//mets:file">
       <assert test="./@ID = //mets:fptr/@FILEID">

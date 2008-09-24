@@ -41,11 +41,11 @@
 	<FLocat LOCTYPE="URL" xlink:href="xxx/content_file_5"/>
       </file>
 
-      <file ID="file-6" CHECKSUM="54d6d21815fe3e679478ada14ae39799" CHECKSUMTYPE="MD5">
+      <file ID="file-6">
 	<FLocat LOCTYPE="URL" xlink:href="xxx/content_file_6"/>
       </file>
 
-      <file ID="file-7" CHECKSUM="bfb0cf6095cd5ab3837119b11d3f2855" CHECKSUMTYPE="MD5">
+      <file ID="file-7" CHECKSUM="bfb0cf6095cd5ab3837119b11d3f285500000000" CHECKSUMTYPE="SHA-1">
 	<FLocat LOCTYPE="URL" xlink:href="xxx/content_file_7"/>
       </file>
 
