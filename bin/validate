@@ -1,0 +1,15 @@
+#!/bin/sh
+
+
+function die() {
+    echo $1
+    exit 1
+}
+
+my_schema=$1
+my_document=$2
+
+xsltproc iso_impl/iso_dsdl_include.xsl $my_schema > stage1.sch || die "failed on stage 1"
+xsltproc iso_impl/iso_abstract_expand.xsl stage1.sch > stage2.sch || die "failed on stage 2"
+xsltproc iso_impl/iso_svrl.xsl  stage2.sch > theSchema.xsl || die "failed on stage 3"
+xsltproc theSchema.xsl $my_document || die "failed on stage 4"

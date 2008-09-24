@@ -1,0 +1,16 @@
+#!/bin/sh
+
+schema=$1
+document=$2
+
+echo "pass 1"
+xsltproc iso_dsdl_include.xsl $schema > theSchema1.sch
+
+echo "pass 2"
+xsltproc iso_abstract_expand.xsl theSchema1.sch > theSchema2.sch
+
+echo "pass 3"
+xsltproc iso_svrl.xsl  theSchema2.sch > theSchema.xsl
+
+echo "pass 4"
+xsltproc theSchema.xsl $document

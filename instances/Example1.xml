@@ -1,0 +1,37 @@
+<mets xmlns="http://www.loc.gov/METS/"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/version17/mets.v1-7.xsd
+			  http://www.fcla.edu/dls/md/daitss/ http://www.fcla.edu/dls/md/daitss/daitss.xsd">
+  <amdSec>
+
+    <!-- required agreement info -->
+    <digiprovMD ID="digiprov-1">
+      <mdWrap MDTYPE="OTHER" OTHERMDTYPE="DATISS">
+	<xmlData>
+	  <daitss xmlns="http://www.fcla.edu/dls/md/daitss/">
+	    <AGREEMENT_INFO ACCOUNT="YOUR_ACCOUNT" PROJECT="THIS_PROJECT"/>
+	  </daitss>
+	</xmlData>
+      </mdWrap>
+    </digiprovMD>
+
+  </amdSec>
+
+  <!-- must have checksum, checksum type & file location  -->
+  <fileSec>
+    <fileGrp>
+      <file ID="file-1" CHECKSUM="5ddb5736a014619bbbb3684bc6ae1613" CHECKSUMTYPE="MD5">
+	<FLocat LOCTYPE="URL" xlink:href="content_file"/>
+      </file>
+    </fileGrp>
+  </fileSec>
+
+  <!-- struct map can be fashioned in any way valid to mets -->
+  <structMap>
+    <div>
+      <fptr FILEID="file-1"/>
+    </div>
+  </structMap>
+
+</mets>
