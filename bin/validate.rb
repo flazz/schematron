@@ -6,45 +6,37 @@ require 'libxslt'
 include LibXML
 include LibXSLT
 
-XML::Parser::default_line_numbers=true
+ISO_IMPL_DIR='iso_impl'
+ISO_FILES = [ 'iso_dsdl_include.xsl', 
+                    'iso_abstract_expand.xsl', 
+                    'iso_svrl.xsl' ]
 
-def transform(stylesheet, instance)
+XML::Parser::default_line_numbers = true
+instance_doc = XML::Document.file ARGV[1]
 
-  # Build the stylesheet
-  stylesheet = XSLT::Stylesheet.new case stylesheet
-                                    when LibXML::XML::Document 
-                                      stylesheet
-                                    when String
-                                      XML::Document.file stylesheet
-                                    end
+# Compile schematron into xsl
+instance_doc = XML::Document.file ARGV[1]
+schema_doc = XML::Document.file ARGV[0]
 
-  # Transform the instance
-  stylesheet.apply case instance
-                   when LibXML::XML::Document
-                     instance
-                   when String
-                     XML::Document.file instance
-                   end
+validator = Dir.chdir ISO_IMPL_DIR do
+  
+  v = ISO_FILES.inject(schema_doc) do |stage,file|
+    doc = XML::Document.file file
+    stylesheet = XSLT::Stylesheet.new doc
+    stylesheet.apply stage
+  end
+  
+  XSLT::Stylesheet.new v
+
 end
 
-def validate(sch, instance)
-  p1 = transform 'iso_dsdl_include.xsl', sch
-  p2 = transform 'iso_abstract_expand.xsl', p1
-  p3 = transform 'iso_svrl.xsl', p2
-  transform p3, instance
-end
-
-# TODO make the namespace prefixes transparant
-
-instance_doc = XML::Document.file '../instances/Example2.xml'
-schema_doc = XML::Document.file '../sch/fda_sip.sch'
-results_doc = validate schema_doc, instance_doc
+results_doc = validator.apply instance_doc
 
 errors = []
-results_doc.root.find('//svrl:failed-assert').each do |assert|
+results_doc.root.find('//svrl:failed-assert', 'svrl' => 'http://purl.oclc.org/dsdl/svrl').each do |assert|
   context = instance_doc.root.find_first assert['location']
 
-  assert.find('svrl:text/text()').each do |message|
+  assert.find('svrl:text/text()', 'svrl' => 'http://purl.oclc.org/dsdl/svrl').each do |message|
     errors << '%s "%s" on line %d: %s' % [ context.node_type_name,
                                            context.name, 
                                            context.line_num,

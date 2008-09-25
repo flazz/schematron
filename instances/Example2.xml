@@ -45,7 +45,7 @@
 	<FLocat LOCTYPE="URL" xlink:href="xxx/content_file_6"/>
       </file>
 
-      <file ID="file-7" CHECKSUM="bfb0cf6095cd5ab3837119b11d3f285500000000" CHECKSUMTYPE="SHA-1">
+      <file ID="file-7" CHECKSUM="bfb0cf6095cd5ab3837119b11d3f285500000000z" CHECKSUMTYPE="SHA-1">
 	<FLocat LOCTYPE="URL" xlink:href="xxx/content_file_7"/>
       </file>
 
