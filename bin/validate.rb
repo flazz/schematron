@@ -6,31 +6,32 @@ require 'libxslt'
 include LibXML
 include LibXSLT
 
-ISO_IMPL_DIR='iso_impl'
-ISO_FILES = [ 'iso_dsdl_include.xsl', 
-                    'iso_abstract_expand.xsl', 
-                    'iso_svrl.xsl' ]
+ISO_IMPL_DIR = 'iso_impl'
+ISO_FILES = [ 'iso_dsdl_include.xsl',
+              'iso_abstract_expand.xsl',
+              'iso_svrl.xsl' ]
 
+# Tell the parse to remember the line numbers for each node
 XML::Parser::default_line_numbers = true
+
+# Get sch and xml from command line
+schema_doc = XML::Document.file ARGV[0]
 instance_doc = XML::Document.file ARGV[1]
 
 # Compile schematron into xsl
-instance_doc = XML::Document.file ARGV[1]
-schema_doc = XML::Document.file ARGV[0]
+validator_xsl = Dir.chdir ISO_IMPL_DIR do
 
-validator = Dir.chdir ISO_IMPL_DIR do
-  
-  v = ISO_FILES.inject(schema_doc) do |stage,file|
+  xforms = ISO_FILES.map do |file|
     doc = XML::Document.file file
-    stylesheet = XSLT::Stylesheet.new doc
-    stylesheet.apply stage
+    xsl = XSLT::Stylesheet.new doc
   end
-  
-  XSLT::Stylesheet.new v
 
+  validator_doc = xforms.inject(schema_doc) { |xml, xsl| xsl.apply xml }
+  XSLT::Stylesheet.new validator_doc
 end
 
-results_doc = validator.apply instance_doc
+# Validate the xml with the
+results_doc = validator_xsl.apply instance_doc
 
 errors = []
 results_doc.root.find('//svrl:failed-assert', 'svrl' => 'http://purl.oclc.org/dsdl/svrl').each do |assert|
