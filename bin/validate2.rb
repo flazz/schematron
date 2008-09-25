@@ -37,7 +37,8 @@ end
 # TODO make the namespace prefixes transparant
 
 instance_doc = XML::Document.file '../instances/Example2.xml'
-results_doc = validate '../sch/fda_sip.sch', instance_doc
+schema_doc = XML::Document.file '../sch/fda_sip.sch'
+results_doc = validate schema_doc, instance_doc
 
 errors = []
 results_doc.root.find('//svrl:failed-assert').each do |assert|
