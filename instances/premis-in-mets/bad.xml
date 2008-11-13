@@ -1,0 +1,102 @@
+<!-- Example showing PREMIS in METS -->
+
+<mets xmlns="http://www.loc.gov/METS/"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/version17/mets.v1-7.xsd
+			  http://www.fcla.edu/dls/md/daitss/ http://www.fcla.edu/dls/md/daitss/daitss.xsd">
+  <amdSec>
+
+
+    <!-- WRONG: digiprovMD/object -->
+    <digiprovMD ID="digiprov-1">
+      <mdWrap MDTYPE="PREMIS">
+	<xmlData>
+	  
+	  <object xmlns="info:lc/xmlns/premis-v2" xsi:type="file">
+	    <objectIdentifier>
+	      <objectIdentifierType>DAITSS2</objectIdentifierType>
+	      <objectIdentifierValue>daitss://archive.fcla.edu/p926/f0</objectIdentifierValue>
+	    </objectIdentifier>
+	    <objectCharacteristics>
+	      <compositionLevel>0</compositionLevel>
+	      <fixity>
+		<messageDigestAlgorithm>MD5</messageDigestAlgorithm>
+		<messageDigest>2de9ef79df730f93e40819625cf7bcb2</messageDigest>
+	      </fixity>
+	      <size>3001452</size>
+	      <format>
+		<formatDesignation>
+		  <formatName>TIFF</formatName>
+		  <formatVersion>4.0</formatVersion>
+		</formatDesignation>
+		<formatRegistry>
+		  <formatRegistryName>http://www.nationalarchives.gov.uk/pronom</formatRegistryName>
+		  <formatRegistryKey>fmt/8</formatRegistryKey>
+		</formatRegistry>
+	      </format>
+	    </objectCharacteristics>
+	    <storage>
+	      <contentLocation>
+		<contentLocationType>URL</contentLocationType>
+		<contentLocationValue>http://archive.fcla.edu:5000/silos/gainesville-1/p926</contentLocationValue>
+	      </contentLocation>
+	      <storageMedium>Hard disk</storageMedium>
+	    </storage>
+	  </object>
+
+	</xmlData>
+      </mdWrap>
+    </digiprovMD>
+
+    <!-- WRONG techMD/event -->
+    <techMD ID="tech-1">
+      <mdWrap MDTYPE="PREMIS">
+	<xmlData>
+
+	  <event xmlns="info:lc/xmlns/premis-v2">
+	    <eventIdentifier>
+	      <eventIdentifierType>DAITSS</eventIdentifierType>
+	      <eventIdentifierValue>1</eventIdentifierValue>
+	    </eventIdentifier>
+	    <eventType>Format Validation</eventType>
+	    <eventDateTime>2008-05-06T10:40:22-04:00</eventDateTime>
+	    <eventOutcomeInformation>
+	      <eventOutcome>Invalid</eventOutcome>
+	      <eventOutcomeDetail>
+		<eventOutcomeDetailExtension>
+		  <anomaly>ill-formed DateTime value</anomaly>
+		</eventOutcomeDetailExtension>
+	      </eventOutcomeDetail>
+	    </eventOutcomeInformation>
+	    <linkingAgentIdentifier>
+	      <linkingAgentIdentifierType>URI</linkingAgentIdentifierType>
+	      <linkingAgentIdentifierValue>http://archive.fcla.edu/format-description</linkingAgentIdentifierValue>
+	    </linkingAgentIdentifier>
+	    <linkingObjectIdentifier>
+	      <linkingObjectIdentifierType>DAITSS2</linkingObjectIdentifierType>
+	      <linkingObjectIdentifierValue>daitss://archive.fcla.edu/p926/f0</linkingObjectIdentifierValue>
+	    </linkingObjectIdentifier>
+	  </event>
+
+	</xmlData>
+      </mdWrap>
+    </techMD>
+
+  </amdSec>
+
+  <fileSec>
+    <fileGrp>
+      <file ID="file-1" CHECKSUM="5ddb5736a014619bbbb3684bc6ae1613" CHECKSUMTYPE="MD5">
+	<FLocat LOCTYPE="URL" xlink:href="content_file"/>
+      </file>
+    </fileGrp>
+  </fileSec>
+
+  <structMap>
+    <div>
+      <fptr FILEID="file-1"/>
+    </div>
+  </structMap>
+
+</mets>

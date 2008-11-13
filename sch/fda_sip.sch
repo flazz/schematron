@@ -60,7 +60,7 @@
     </rule>
   </pattern>
 
-  <pattern name="All files must be referenced in the structMap">
+  <pattern name="All fptr in the structMap should point to a file">
     <rule context="//mets:fptr">
       <assert test="./@FILEID = //mets:file/@ID">
 	file pointer must reference a file
