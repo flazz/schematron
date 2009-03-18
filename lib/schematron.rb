@@ -34,20 +34,35 @@ module Schematron
         doc = Dir.chdir(ISO_IMPL_DIR) { XML::Document.file file }
         XSLT::Stylesheet.new doc
       end
-      
+
       validator_doc = xforms.inject(schema_doc) { |xml, xsl| xsl.apply xml }
       validator_xsl = XSLT::Stylesheet.new validator_doc
-      
+
       # Validate the xml
       results_doc = validator_xsl.apply instance_doc
-      
+
       # restore old state
       XML::Parser::default_line_numbers = old_line_numbers
-      
-      # return the results
-      results_doc
+
+      # compile the errors
+      results = []
+      results_doc.root.find('//svrl:failed-assert', NS_PREFIXES).each do |assert|
+        context = instance_doc.root.find_first assert['location']
+
+        assert.find('svrl:text/text()', NS_PREFIXES).each do |message|
+          results << {
+            :type => context.node_type_name,
+            :name => context.name,
+            :line => context.line_num,
+            :message => message.content.strip
+          }
+        end
+
+        results
+      end
+
     end
 
   end
-
+  
 end
