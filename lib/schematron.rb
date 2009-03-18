@@ -64,5 +64,5 @@ module Schematron
     end
 
   end
-  
+
 end
