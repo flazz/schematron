@@ -1,26 +1,27 @@
 #!/usr/bin/ruby
 
-include LibXML
-include LibXSLT
-
+require 'optparse'
+require 'libxml'
 require 'schematron'
+
+include LibXML
+
+
+puts "Usage: validate [schematron] [instance]" if ARGV.size != 2
+
+# use the line numbers
+XML.default_line_numbers = true
 
 # Get sch and xml from command line
 schema_doc = XML::Document.file ARGV[0]
 instance_doc = XML::Document.file ARGV[1]
 
 stron = Schematron::Schema.new schema_doc
-stron.validate instance_doc
-
-# Print the errors
-results_doc.root.find('//svrl:failed-assert', NS_PREFIXES).each do |assert|
-  context = instance_doc.root.find_first assert['location']
-
-  assert.find('svrl:text/text()', NS_PREFIXES).each do |message|
-    puts '%s "%s" on line %d: %s' % [ context.node_type_name,
-                                      context.name,
-                                      context.line_num,
-                                      message.content.strip ]
-  end
-
+stron.validate(instance_doc).each do |error|
+  puts '%s "%s" on line %d: %s' % [
+                                   error[:type],
+                                   error[:name],
+                                   error[:line],
+                                   error[:message]
+                                  ]
 end

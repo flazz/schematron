@@ -3,6 +3,9 @@ require 'libxslt'
 
 module Schematron
 
+  include LibXML
+  include LibXSLT
+
   # The location of the ISO schematron implemtation lives
   ISO_IMPL_DIR = 'iso_impl'
 
@@ -24,25 +27,21 @@ module Schematron
 
     def validate(instance_doc)
 
-      # Tell the parse to remember the line numbers for each node
-      # TODO make a new parse for this and not mess with defaults
-      old_line_numbers = XML::Parser::default_line_numbers
-      XML::Parser::default_line_numbers = true
-
       # Compile schematron into xsl that maps to svrl
       xforms = ISO_FILES.map do |file|
-        doc = Dir.chdir(ISO_IMPL_DIR) { XML::Document.file file }
-        XSLT::Stylesheet.new doc
+
+        Dir.chdir(ISO_IMPL_DIR) do
+          doc = XML::Document.file file
+          LibXSLT::XSLT::Stylesheet.new doc
+        end
+
       end
 
-      validator_doc = xforms.inject(schema_doc) { |xml, xsl| xsl.apply xml }
-      validator_xsl = XSLT::Stylesheet.new validator_doc
+      validator_doc = xforms.inject(@schema_doc) { |xml, xsl| xsl.apply xml }
+      validator_xsl = LibXSLT::XSLT::Stylesheet.new validator_doc
 
       # Validate the xml
       results_doc = validator_xsl.apply instance_doc
-
-      # restore old state
-      XML::Parser::default_line_numbers = old_line_numbers
 
       # compile the errors
       results = []
@@ -58,9 +57,9 @@ module Schematron
           }
         end
 
-        results
       end
-
+      
+      results
     end
 
   end
