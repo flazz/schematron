@@ -22,12 +22,8 @@ module Schematron
   class Schema
 
     def initialize(doc)
-      @schema_doc = doc
-    end
+      schema_doc = doc
 
-    def validate(instance_doc)
-
-      # Compile schematron into xsl that maps to svrl
       xforms = ISO_FILES.map do |file|
 
         Dir.chdir(ISO_IMPL_DIR) do
@@ -36,15 +32,20 @@ module Schematron
         end
 
       end
+      
+      # Compile schematron into xsl that maps to svrl
+      validator_doc = xforms.inject(schema_doc) { |xml, xsl| xsl.apply xml }
+      @validator_xsl = LibXSLT::XSLT::Stylesheet.new validator_doc
+    end
 
-      validator_doc = xforms.inject(@schema_doc) { |xml, xsl| xsl.apply xml }
-      validator_xsl = LibXSLT::XSLT::Stylesheet.new validator_doc
+    def validate(instance_doc)
 
       # Validate the xml
-      results_doc = validator_xsl.apply instance_doc
+      results_doc = @validator_xsl.apply instance_doc
 
       # compile the errors
       results = []
+      
       results_doc.root.find('//svrl:failed-assert', NS_PREFIXES).each do |assert|
         context = instance_doc.root.find_first assert['location']
 
@@ -53,8 +54,7 @@ module Schematron
             :type => context.node_type_name,
             :name => context.name,
             :line => context.line_num,
-            :message => message.content.strip
-          }
+            :message => message.content.strip }
         end
 
       end
