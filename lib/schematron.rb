@@ -7,7 +7,7 @@ module Schematron
   include LibXSLT
 
   # The location of the ISO schematron implemtation lives
-  ISO_IMPL_DIR = 'iso_impl'
+  ISO_IMPL_DIR = File.join File.dirname(__FILE__), "..", 'iso_impl'
 
   # The file names of the compilation stages
   ISO_FILES = [ 'iso_dsdl_include.xsl',
