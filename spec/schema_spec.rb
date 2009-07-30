@@ -40,4 +40,20 @@ describe Schematron::Schema do
     results.should_not be_empty
   end
   
+  it "should log report rules in the results" do
+    schema_file = File.join 'spec', 'schema', 'pim.sch'
+    instance_file = File.join 'spec', 'instances', 'daitss-sip', 'Example1.xml'
+    
+    schema_doc = XML::Parser.file(schema_file).parse
+    instance_doc = XML::Parser.file(instance_file).parse
+    
+    stron = Schematron::Schema.new schema_doc
+    results = stron.validate instance_doc
+    
+    results.length.should == 1
+    results.first[:rule_type].should == 'report'
+    
+    
+  end
+  
 end

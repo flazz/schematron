@@ -22,6 +22,14 @@
       </assert> 
     </rule>
 
- </pattern>
+  </pattern>
+  
+  <pattern name="METS should have embedded PREMIS">
+    <rule context="mets:mets">
+      <report test="not(//mets:mdWrap[@MDTYPE='PREMIS'])">
+        This METS file has no embedded PREMIS
+      </report>
+    </rule>
+  </pattern>
 
 </schema>
