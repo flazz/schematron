@@ -8,7 +8,7 @@ Uses [ISO Schematron](http://www.schematron.com) version: 2008-07-28
 Installation
 ------------
     % gem install schematron
-the rubyforge gem is no deprecated. [Use gemcutter](http://gemcutter.org/gems/schematron)
+The rubyforge gem is deprecated. [Use gemcutter](http://gemcutter.org/gems/schematron).
 
 Command line example
 -------------------
@@ -43,5 +43,8 @@ Ruby API example
     
 ---
 
-Copyright © 2009 Francesco Lazzarino. 
+Copyright © 2009, [Francesco Lazzarino](mailto:flazzarino@gmail.com).
+
+Sponsored by [Florida Center for Library Automation](http://www.fcla.edu).
+
 See LICENSE.txt for terms.
