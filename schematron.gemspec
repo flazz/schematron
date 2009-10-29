@@ -1,15 +1,15 @@
 Gem::Specification.new do |spec|
   spec.name = "schematron"
-  spec.version = '0.1.0'
+  spec.version = '0.1.1'
   spec.summary = "ISO Schematron Validation"
   spec.email = "flazzarino@gmail.com"
-  spec.homepage = 'http://github.com/flazz/iso-schematron'
+  spec.homepage = 'http://github.com/flazz/schematron'
   spec.authors = ["Francesco Lazzarino"]
-  spec.rubyforge_project = 'schematron'
+  #spec.rubyforge_project = 'schematron'
   
   spec.executables << 'stron'
     
-  spec.files = ["Rakefile", "schematron.gemspec", "README", "LICENSE.txt",
+  spec.files = ["Rakefile", "schematron.gemspec", "README.md", "LICENSE.txt",
                 "bin/stron",
                 "lib/schematron.rb",
                 "iso_impl/iso_abstract_expand.xsl",
