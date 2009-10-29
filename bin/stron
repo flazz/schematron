@@ -7,7 +7,7 @@ require 'schematron'
 include LibXML
 
 
-puts "Usage: validate [schematron] [instance]" if ARGV.size != 2
+puts "Usage: stron [schematron] [instance doc]" if ARGV.size != 2
 
 # use the line numbers
 XML.default_line_numbers = true
