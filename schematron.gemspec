@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = "schematron"
-  spec.version = '0.1.1'
+  spec.version = '0.1.2'
   spec.summary = "ISO Schematron Validation"
   spec.email = "flazzarino@gmail.com"
   spec.homepage = 'http://github.com/flazz/schematron'
@@ -33,6 +33,6 @@ Gem::Specification.new do |spec|
                 "spec/schema_spec.rb",
                 "spec/spec_helper.rb"]
 
-  spec.add_dependency 'libxml-ruby', '>= 1.1.3'
+  spec.add_dependency 'libxml-ruby', '~> 1.1.2'
   spec.add_dependency 'libxslt-ruby', '>= 0.9.1'
 end
