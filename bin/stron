@@ -6,22 +6,29 @@ require 'schematron'
 
 include LibXML
 
+if __FILE__ == $0
+  XML.default_line_numbers = true
 
-puts "Usage: stron [schematron] [instance doc]" if ARGV.size != 2
+  begin
 
-# use the line numbers
-XML.default_line_numbers = true
+    # get args
+    schema_file = ARGV.shift or raise "schematron file required"
+    instance_file = ARGV.shift or raise "instance doc file required"
 
-# Get sch and xml from command line
-schema_doc = XML::Document.file ARGV[0]
-instance_doc = XML::Document.file ARGV[1]
+    # parse the xml
+    schema_doc = XML::Document.file schema_file
+    instance_doc = XML::Document.file instance_file
+    stron = Schematron::Schema.new schema_doc
 
-stron = Schematron::Schema.new schema_doc
-stron.validate(instance_doc).each do |error|
-  puts '%s "%s" on line %d: %s' % [
-                                   error[:type],
-                                   error[:name],
-                                   error[:line],
-                                   error[:message]
-                                  ]
+    # validate
+    stron.validate(instance_doc).each do |error|
+      puts '%s "%s" on line %d: %s' % error.values_at(:type, :name, :line, :message)
+    end
+
+  rescue => e
+    puts "Usage: stron [schematron] [instance doc]" 
+    puts e.message
+    exit 1
+  end
+
 end

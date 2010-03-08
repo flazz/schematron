@@ -7,12 +7,12 @@ module Schematron
   include LibXSLT
 
   # The location of the ISO schematron implemtation lives
-  ISO_IMPL_DIR = File.join File.dirname(__FILE__), "..", 'iso_impl'
+  ISO_IMPL_DIR = File.join File.dirname(__FILE__), "..", 'iso-schematron-xslt1'
 
   # The file names of the compilation stages
   ISO_FILES = [ 'iso_dsdl_include.xsl',
                 'iso_abstract_expand.xsl',
-                'iso_svrl.xsl' ]
+                'iso_svrl_for_xslt1.xsl' ]
 
   # Namespace prefix declarations for use in XPaths
   NS_PREFIXES = {
@@ -27,7 +27,7 @@ module Schematron
       xforms = ISO_FILES.map do |file|
 
         Dir.chdir(ISO_IMPL_DIR) do
-          doc = XML::Document.file file
+          doc = open(file) { |io| XML::Document.string io.read }
           LibXSLT::XSLT::Stylesheet.new doc
         end
 
