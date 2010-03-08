@@ -3,12 +3,12 @@ ISO Schematron
 
 Ruby gem for validating XML against schematron schema
 
-Uses [ISO Schematron](http://www.schematron.com) version: 2008-07-28
+Uses [ISO Schematron](http://www.schematron.com) version: 2010-01-25
 
 Installation
 ------------
+
     % gem install schematron
-The rubyforge gem is deprecated. [Use gemcutter](http://gemcutter.org/gems/schematron).
 
 Command line example
 -------------------
@@ -43,7 +43,7 @@ Ruby API example
     
 ---
 
-Copyright © 2009, [Francesco Lazzarino](mailto:flazzarino@gmail.com).
+Copyright © 2009-2010 [Francesco Lazzarino](mailto:flazzarino@gmail.com).
 
 Sponsored by [Florida Center for Library Automation](http://www.fcla.edu).
 
