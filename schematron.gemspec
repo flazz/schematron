@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.homepage = 'http://github.com/flazz/schematron'
   spec.authors = ["Francesco Lazzarino"]
   spec.executables << 'stron'
-    
+
   spec.files = ["schematron.gemspec", "README.md", "LICENSE.txt", '.semver']
   spec.files += Dir['lib/*.rb']
   spec.files += Dir['spec/**/*']
