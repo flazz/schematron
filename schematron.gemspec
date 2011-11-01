@@ -14,6 +14,6 @@ Gem::Specification.new do |spec|
   spec.files += Dir['spec/**/*']
   spec.files += Dir['iso-schematron-xslt1/*']
   spec.add_dependency 'semver', '~> 0.2.0'
-  spec.add_dependency 'libxml-ruby', '~> 1.1.2'
+  spec.add_dependency 'libxml-ruby'
   spec.add_dependency 'libxslt-ruby', '>= 0.9.1'
 end
