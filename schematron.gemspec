@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "schematron"
-  spec.version = "1.1.2"   #SemVer.find.format '%M.%m.%p'
+  spec.version = "1.1.3"   #SemVer.find.format '%M.%m.%p'
   spec.summary = "ISO Schematron Validation"
   spec.email = "flazzarino@gmail.com"
   spec.homepage = 'http://github.com/flazz/schematron'
